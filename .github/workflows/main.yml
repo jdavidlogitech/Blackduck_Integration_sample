@@ -6,21 +6,19 @@ on:
 jobs:
 
   build:
-
     defaults:
       run:
         shell: bash
         working-directory: ./src/integration
-      runs-on: ubuntu-latest
-      steps:
-        - name : Checkout Repository
-          uses: actions/checkout@v3
+    runs-on: ubuntu-latest
+    steps:
+      - name : Checkout Repository
+        uses: actions/checkout@v3
 
-        - name : RUN bash script
-          run : echo Build Complete
+      - name : RUN bash script
+        run : echo Build Complete
 
   blackduck_scan:
-    needs: [prepare]
     defaults:
       run:
         shell: bash
