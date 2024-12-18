@@ -5,24 +5,10 @@ on:
 
 jobs:
 
-  build:
-    defaults:
-      run:
-        shell: bash
-        working-directory: ./src/integration
-    runs-on: ubuntu-latest
-    steps:
-      - name : Checkout Repository
-        uses: actions/checkout@v3
-
-      - name : RUN bash script
-        run : echo Build Complete
-
   blackduck_scan:
     defaults:
       run:
         shell: bash
-        working-directory: ./src/integration
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Repository
@@ -44,3 +30,15 @@ jobs:
           blackducksca_token: ${{ secrets.BLACKDUCK_TOKEN }}
           blackduck_scan_full: true
           blackduck_scan_failure_severities: 'BLOCKER,CRITICAL,MAJOR'
+
+  build:
+    defaults:
+      run:
+        shell: bash
+    runs-on: ubuntu-latest
+    steps:
+      - name : Checkout Repository
+        uses: actions/checkout@v3
+
+      - name : RUN bash script
+        run : echo Build Complete
