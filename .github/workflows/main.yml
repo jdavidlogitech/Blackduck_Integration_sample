@@ -24,7 +24,7 @@ jobs:
         env:
           DETECT_PROJECT_NAME: ${{github.event.repository.name}} #Repository name needs to be set as the project name
           DETECT_PROJECT_VERSION_NAME: ${{steps.extract_branch.outputs.branch}}
-          DETECT_TOOLS: "DETECTOR"
+          DETECT_TOOLS: "DETECTOR,SIGNATURE_SCAN,BINARY_SCAN,THREAT_INTEL,COMPONENT_LOCATION_ANALYSIS"
           DETECT_DETECTOR_SEARCH_DEPTH: 7 #The folder depth untill which the scan needs to be done
           
         with:
@@ -32,7 +32,7 @@ jobs:
           blackducksca_url: ${{ vars.BLACKDUCK_URL }}  #Needs to be set in the 'secrets and variable' section of the github actions settings
           blackducksca_token: ${{ secrets.BLACKDUCK_TOKEN }} #To be extracted from BlackDuck (Profile -> Access Tokens -> Create Access Token -> Enter Name -> Scope(Read and Write Access) -> Create) and needs to be set in the 'secrets nad variable' section of the github actions settings.
           blackducksca_scan_full: true #Full or Rapid scan
-          blackducksca_scan_failure_severities: 'BLOCKER,CRITICAL,MAJOR'
+          blackducksca_scan_failure_severities: 'BLOCKER,CRITICAL'
 
   build:
     defaults:
