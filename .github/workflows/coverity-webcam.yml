@@ -1,0 +1,20 @@
+<After Build-code Step>
+        
+      - name: Extract branch name
+        run: echo "branch=${GITHUB_HEAD_REF:-${GITHUB_REF#refs/heads/}}" >> $GITHUB_OUTPUT
+        id: extract_branch
+        
+      - name: Coverity Full Scan
+        uses: blackduck-inc/black-duck-security-scan@v2.0.0
+        env:
+          coverity-checker-options: --all-security
+        with:
+          coverity_url: ${{ vars.COVERITY_URL }}
+          coverity_user: ${{ vars.COVERITY_USER }}
+          coverity_passphrase: ${{ secrets.COVERITY_PASSPHRASE }}
+          coverity_project_name: ${{ github.event.repository.name }}
+          coverity_stream_name: ${{ github.event.repository.name }}-${{ steps.extract_branch.outputs.branch }}
+          coverity_build_command: ./tools/BuildScripts/SS_Build_Rtos_DualBank.sh  Matisse_SMP infinity6e_128_amp_isw_uvc_nor_matisse Matisse && ./tools/BuildScripts/SS_Build_Alkaid_noSign.sh Matisse_SMP matisse_defconfig Matisse
+          coverity_local: true  
+          
+<Firmware signature & further steps followed>
