@@ -19,8 +19,6 @@ jobs:
         
       - name: Coverity Full Scan
         uses: blackduck-inc/black-duck-security-scan@v2.0.0
-        env:
-          coverity-checker-options: --all-security
         with:
           coverity_url: ${{ vars.COVERITY_URL }}
           coverity_user: ${{ vars.COVERITY_USER }}
